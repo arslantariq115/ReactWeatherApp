@@ -1,6 +1,30 @@
+@import "weather-icons";
+
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
 .redBg {
     background-color: red;
     border-radius: 5px;
     color: white;
     padding: 5px;
+}
+
+.clearfix {
+    overflow: auto;
+    clear: both;
+}
+
+.cardNextDays {
+    width: 250px;
+    margin-left: 50px;
+    color: white;
+    border: #bfd2ef ridge;
+    padding-left: 10px;
+    display: inline-block;
+}
+
+.removeTopMargin {
+  margin-top: 0 !important;
 }
