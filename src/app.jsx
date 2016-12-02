@@ -39,7 +39,7 @@ export default class App extends React.Component {
 
 		var minMaxTemp = {
 			fontSize: 25,
-			marginTop: 10,
+			marginTop: 20,
 			marginBottom: 1
 		};
 
@@ -56,7 +56,7 @@ export default class App extends React.Component {
 
     return (
       <div style={bgImage} className="clearfix">
-				<input id="city_name" placeholder="Enter city name" style={inputStyle}></input>
+				<input id="city_name" placeholder="Enter city's name" style={inputStyle}></input>
 				<div style={cardsDiv}>
 					<div style={cardActive}>
 						<h1>Lahore</h1>
@@ -66,9 +66,9 @@ export default class App extends React.Component {
 					</div>
 					<div className="cardNextDays">
 						<h3 className="removeTopMargin">Monday</h3>
-						<i className="wi wi-day-sunny" style={iconSize}></i>
+						<i className="wi wi-day-sunny-overcast" style={iconSize}></i>
 						<p style={minMaxTemp}>25 &#8451; / 18 &#8451;</p>
-						<h3>Sunny</h3>
+						<h3>Cloudy</h3>
 					</div>
 					<div className="cardNextDays">
 						<h3 className="removeTopMargin">Tuesday</h3>
