@@ -6,8 +6,8 @@ export default class NextDayCard extends React.Component {
 		return(
 			<div className="cards-next-days">
 				<h3 className="card-heading">{this.props.day}</h3>
-				<i className="wi wi-day-sunny icon-size"></i>
-				<p className="min-max-temperature">25 <i className="wi wi-degrees"></i>C / 18 <i className="wi wi-degrees"></i>C</p>
+				<i className={"wi icon-size"+" "+this.props.iconClass}></i>
+				<p className="min-max-temperature">{this.props.maxTemp} <i className="wi wi-degrees"></i>C / {this.props.minTemp} <i className="wi wi-degrees"></i>C</p>
 				<h3>{this.props.weatherType}</h3>
 			</div>
 		);

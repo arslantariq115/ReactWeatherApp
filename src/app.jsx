@@ -15,10 +15,10 @@ export default class App extends React.Component {
       <div style={bgImage} className="clearfix">
 				<CityInput/>
 				<div id="cards-container">
-					<CurrentDayCard/>
-					<NextDayCard day="Monday" weatherType = "Sunny"/>
-					<NextDayCard day="Tuesday" weatherType = "Sunny"/>
-					<NextDayCard day="Wednesday" weatherType = "Sunny"/>
+					<CurrentDayCard city="Lahore" temperature="23" weatherType="Sunny"/>
+					<NextDayCard day="Monday" iconClass="wi-day-cloudy" weatherType = "Cloudy" maxTemp="25" minTemp="18"/>
+					<NextDayCard day="Tuesday" iconClass="wi-day-rain" weatherType = "Rainy" maxTemp="21" minTemp="14"/>
+					<NextDayCard day="Wednesday" iconClass="wi-day-sunny" weatherType = "Sunny" maxTemp="23" minTemp="15"/>
 				</div>
       </div>
     )
