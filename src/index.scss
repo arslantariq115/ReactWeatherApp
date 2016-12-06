@@ -1,30 +1,73 @@
 @import "weather-icons";
 
+$card-content-color: #ffffff;
+$input-bg-color: #ccdef9;
+
 body {
   font-family: 'Raleway', sans-serif;
+
+    .clearfix {
+        overflow: auto;
+        clear: both;
+    }
+
+    .cards-next-days {
+        width: 250px;
+        margin-left: 50px;
+        color: $card-content-color;
+        border: #bfd2ef ridge;
+        padding-left: 10px;
+        display: inline-block;
+    }
+
+    .card-heading {
+        margin-top: 0;
+    }
+
+    #city-input {
+        float: right;
+        background-color: $input-bg-color;
+        margin-top: 30px;
+        margin-right: 50px;
+        margin-bottom: 10px;
+        height: 35px;
+        width: 220px;
+        border: #5092fc;
+        padding-left: 10px;
+    }
+
+    #cards-container {
+        margin-top: 400px;
+    }
+
+    #card-active {
+        width: 200px;
+        margin-left: 50px;
+        color: $card-content-color;
+        display: inline-block;
+    }
+
+    #current-temperature {
+        font-size: 80px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+    }
+
+    .min-max-temperature {
+        font-size: 25px;
+        margin-top: 20px;
+        margin-bottom: 1px;
+    }
+
+    #active-weather-type {
+        font-size: 30px;
+        margin-top: 1px;
+    }
+
+    .icon-size {
+        font-size: 80px;
+        margin-left: 70px;
+    }
 }
 
-.redBg {
-    background-color: red;
-    border-radius: 5px;
-    color: white;
-    padding: 5px;
-}
 
-.clearfix {
-    overflow: auto;
-    clear: both;
-}
-
-.cardNextDays {
-    width: 250px;
-    margin-left: 50px;
-    color: white;
-    border: #bfd2ef ridge;
-    padding-left: 10px;
-    display: inline-block;
-}
-
-.removeTopMargin {
-  margin-top: 0 !important;
-}
