@@ -1,0 +1,25 @@
+$card-content-color: #ffffff;
+
+.cards-next-days {
+  width: 250px;
+  margin-left: 50px;
+  color: $card-content-color;
+  border: #bfd2ef ridge;
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.card-heading {
+  margin-top: 0;
+}
+
+.min-max-temperature {
+  font-size: 25px;
+  margin-top: 20px;
+  margin-bottom: 1px;
+}
+
+.icon-size {
+  font-size: 80px;
+  margin-left: 70px;
+}

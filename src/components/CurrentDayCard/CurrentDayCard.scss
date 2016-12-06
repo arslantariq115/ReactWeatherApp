@@ -1,0 +1,19 @@
+$card-content-color: #ffffff;
+
+#card-active {
+  width: 200px;
+  margin-left: 50px;
+  color: $card-content-color;
+  display: inline-block;
+}
+
+#current-temperature {
+  font-size: 80px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+#active-weather-type {
+  font-size: 30px;
+  margin-top: 1px;
+}
