@@ -15,25 +15,25 @@ export default class App extends React.Component {
 					<div id="card-active">
 						<h1>Lahore</h1>
 						Today
-						<p id="current-temperature">23 &#8451;</p>
+						<p id="current-temperature">23<i className="wi wi-degrees"></i>C</p>
 						<p id="active-weather-type">Sunny</p>
 					</div>
 					<div className="cards-next-days">
 						<h3 className="card-heading">Monday</h3>
 						<i className="wi wi-day-sunny-overcast icon-size"></i>
-						<p className="min-max-temperature">25 &#8451; / 18 &#8451;</p>
+						<p className="min-max-temperature">25 <i className="wi wi-degrees"></i>C / 18 <i className="wi wi-degrees"></i>C</p>
 						<h3>Cloudy</h3>
 					</div>
 					<div className="cards-next-days">
 						<h3 className="card-heading">Tuesday</h3>
 						<i className="wi wi-day-sunny icon-size"></i>
-						<p className="min-max-temperature">25 &#8451; / 18 &#8451;</p>
+						<p className="min-max-temperature">25 <i className="wi wi-degrees"></i>C / 18 <i className="wi wi-degrees"></i>C</p>
 						<h3>Sunny</h3>
 					</div>
 					<div className="cards-next-days">
 						<h3 className="card-heading">Wednesday</h3>
 						<i className="wi wi-day-sunny icon-size"></i>
-						<p className="min-max-temperature">25 &#8451; / 18 &#8451;</p>
+						<p className="min-max-temperature">25 <i className="wi wi-degrees"></i>C / 18 <i className="wi wi-degrees"></i>C</p>
 						<h3>Sunny</h3>
 					</div>
 				</div>
