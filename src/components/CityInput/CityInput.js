@@ -7,6 +7,7 @@ export default class CityInput extends React.Component {
 
 		this.updateState = this.updateState.bind(this);
 		this.handleCityChange = this.handleCityChange.bind(this);
+		this.onFocusOut = this.onFocusOut.bind(this);
 
 		this.state = {
 			city: ''
@@ -24,13 +25,19 @@ export default class CityInput extends React.Component {
 		this.updateState(cityName);
 	}
 
+	onFocusOut() {
+		var city = this.state.city;
+		this.props.weatherDataFunc(city);
+	}
+
 	render() {
 		return(
 			<input
 				id="city-input"
 				placeholder="Enter city's name"
 				value={this.state.city}
-				onChange={this.handleCityChange}>
+				onChange={this.handleCityChange}
+				onBlur={this.onFocusOut}>
 			</input>
 		);
 	}
