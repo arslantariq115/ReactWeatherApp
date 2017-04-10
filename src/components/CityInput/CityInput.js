@@ -37,7 +37,8 @@ export default class CityInput extends React.Component {
 				placeholder="Enter city's name"
 				value={this.state.city}
 				onChange={this.handleCityChange}
-				onBlur={this.onFocusOut}>
+				onBlur={this.onFocusOut}
+				required="true">
 			</input>
 		);
 	}

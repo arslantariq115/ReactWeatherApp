@@ -1,12 +1,15 @@
 import './index.scss';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import pic from './weather.jpg';
 import CityInput from './components/CityInput/CityInput';
 import CurrentDayCard from './components/CurrentDayCard/CurrentDayCard';
 import NextDayCard from './components/NextDayCard/NextDayCard';
-//import mainWeatherTypes from './weathertypes.json';
+import NotificationSystem from 'react-notification-system';
 
 export default class App extends React.Component {
+	_notificationSystem = null;
+
 	constructor(props){
 		super(props);
 
@@ -14,6 +17,7 @@ export default class App extends React.Component {
 		this.getWeatherData = this.getWeatherData.bind(this);
 		this.getNextDays = this.getNextDays.bind(this);
 		this.checkMainWeatherType = this.checkMainWeatherType.bind(this);
+		this._addNotification = this._addNotification.bind(this);
 
 		this.state = {
 			city: '',
@@ -55,10 +59,43 @@ export default class App extends React.Component {
 								main: ''
 							}
 						]
+					},
+					{
+						temp: {
+							max: '',
+							min: '',
+						},
+						weather: [
+							{
+								main: ''
+							}
+						]
+					},
+					{
+						temp: {
+							max: '',
+							min: '',
+						},
+						weather: [
+							{
+								main: ''
+							}
+						]
 					}
 				]
 			}
 		};
+	}
+
+	_addNotification() {
+		this._notificationSystem.addNotification({
+			message: 'Sorry! The weather data can not be fetched at the moment.',
+			level: 'error'
+		});
+	}
+
+	componentDidMount() {
+		this._notificationSystem = this.refs.notificationSystem;
 	}
 
 	componentWillMount() {
@@ -77,7 +114,14 @@ export default class App extends React.Component {
 						}
 					})
 				} else {
-					//alert("The data can not be fetched.");
+					this._addNotification();
+					this.setState({
+						city: 'No Data',
+						weatherData: {
+							temperature: '-',
+							weatherType: 'N/A'
+						}
+					})
 				}
 			})
 			.catch(err => {
@@ -85,7 +129,7 @@ export default class App extends React.Component {
 			});
 
 		//requesting data for next three days
-		fetch('http://api.openweathermap.org/data/2.5/forecast/daily?q=lahore&mode=json&cnt=3&APPID=bf23050b48cf91b8e12d5164884f86b0', {
+		fetch('http://api.openweathermap.org/data/2.5/forecast/daily?q=lahore&mode=json&cnt=5&APPID=bf23050b48cf91b8e12d5164884f86b0', {
 			method: 'get',
 			mode: 'cors'
 		}).then(response => response.json())
@@ -95,7 +139,7 @@ export default class App extends React.Component {
 						nextDaysData: resp
 					})
 				} else {
-					//alert("The data can not be fetched.");
+					this._addNotification();
 				}
 			})
 			.catch(err => {
@@ -126,6 +170,8 @@ export default class App extends React.Component {
 		nextDays[0] = weekday[(d.getDay()+1) % weekday.length];
 		nextDays[1] = weekday[(d.getDay()+2) % weekday.length];
 		nextDays[2] = weekday[(d.getDay()+3) % weekday.length];
+		nextDays[3] = weekday[(d.getDay()+4) % weekday.length];
+		nextDays[4] = weekday[(d.getDay()+5) % weekday.length];
 
 		return nextDays;
 	}
@@ -146,7 +192,7 @@ export default class App extends React.Component {
 						}
 					})
 				} else {
-					//alert("The data can not be fetched for an empty input.");
+					this._addNotification();
 				}
 			})
 			.catch(err => {
@@ -154,7 +200,7 @@ export default class App extends React.Component {
 			});
 
 		//requesting data for next three days
-		fetch('http://api.openweathermap.org/data/2.5/forecast/daily?q='+city+'&mode=json&cnt=3&APPID=bf23050b48cf91b8e12d5164884f86b0', {
+		fetch('http://api.openweathermap.org/data/2.5/forecast/daily?q='+city+'&mode=json&cnt=5&APPID=bf23050b48cf91b8e12d5164884f86b0', {
 			method: 'get',
 			mode: 'cors'
 		}).then(response => response.json())
@@ -164,7 +210,7 @@ export default class App extends React.Component {
 						nextDaysData: resp
 					})
 				} else {
-					//alert("The data can not be fetched.");
+					this._addNotification();
 				}
 			})
 			.catch(err => {
@@ -194,8 +240,11 @@ export default class App extends React.Component {
 		else if(weatherType=="Clouds"){
 			return "wi-cloudy";
 		}
+		else if(weatherType=="Dust"){
+			return "wi-dust";
+		}
 		else {
-			return "wi-na"
+			return "wi-na";
 		}
 
 	}
@@ -209,33 +258,51 @@ export default class App extends React.Component {
 
     return (
       <div style={bgImage} className="clearfix">
+				<div>
+					<NotificationSystem ref="notificationSystem"/>
+				</div>
+				<CurrentDayCard
+					city={this.state.city}
+					iconClass={this.checkMainWeatherType(this.state.weatherData.weatherType)}
+					temperature={this.state.weatherData.temperature}
+					weatherType={this.state.weatherData.weatherType}
+				/>
 				<CityInput weatherDataFunc={this.getWeatherData}/>
 				<div id="cards-container">
-					<CurrentDayCard
-						city={this.state.city}
-						temperature={this.state.weatherData.temperature}
-						weatherType={this.state.weatherData.weatherType}
-					/>
 					<NextDayCard
 						day={nextDays[0]}
-						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[0].weather[0].main)}//"wi-day-cloudy"
+						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[0].weather[0].main)}
 						weatherType= {this.state.nextDaysData.list[0].weather[0].main}
 						maxTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[0].temp.max)}
 						minTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[0].temp.min)}
 					/>
 					<NextDayCard
 						day={nextDays[1]}
-						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[1].weather[0].main)}//"wi-day-rain"
+						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[1].weather[0].main)}
 						weatherType= {this.state.nextDaysData.list[1].weather[0].main}
 						maxTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[1].temp.max)}
 						minTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[1].temp.min)}
 					/>
 					<NextDayCard
 						day={nextDays[2]}
-						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[2].weather[0].main)}//"wi-day-sunny"
+						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[2].weather[0].main)}
 						weatherType= {this.state.nextDaysData.list[2].weather[0].main}
 						maxTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[2].temp.max)}
 						minTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[2].temp.min)}
+					/>
+					<NextDayCard
+						day={nextDays[3]}
+						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[3].weather[0].main)}
+						weatherType= {this.state.nextDaysData.list[3].weather[0].main}
+						maxTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[3].temp.max)}
+						minTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[3].temp.min)}
+					/>
+					<NextDayCard
+						day={nextDays[4]}
+						iconClass= {this.checkMainWeatherType(this.state.nextDaysData.list[4].weather[0].main)}
+						weatherType= {this.state.nextDaysData.list[4].weather[0].main}
+						maxTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[4].temp.max)}
+						minTemp= {this.kelvinToCelsius(this.state.nextDaysData.list[4].temp.min)}
 					/>
 				</div>
       </div>
