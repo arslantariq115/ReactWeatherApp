@@ -19,69 +19,8 @@ export default class App extends React.Component {
 		this.state = {
 			city: '',
 			country: '',
-			weatherData: {
-				temperature: '',
-				weatherType: ''
-			},
-			nextDaysData: {
-				list: [
-					{
-						temp: {
-							max: '',
-							min: '',
-						},
-						weather: [
-							{
-								main: ''
-							}
-						]
-					},
-					{
-						temp: {
-							max: '',
-							min: '',
-						},
-						weather: [
-							{
-								main: ''
-							}
-						]
-					},
-					{
-						temp: {
-							max: '',
-							min: '',
-						},
-						weather: [
-							{
-								main: ''
-							}
-						]
-					},
-					{
-						temp: {
-							max: '',
-							min: '',
-						},
-						weather: [
-							{
-								main: ''
-							}
-						]
-					},
-					{
-						temp: {
-							max: '',
-							min: '',
-						},
-						weather: [
-							{
-								main: ''
-							}
-						]
-					}
-				]
-			}
+			weatherData: {},
+			nextDaysData: null
 		};
 	}
 
@@ -105,7 +44,7 @@ export default class App extends React.Component {
 			}
 		}
 
-		this.getWeatherData(location);
+		this.getWeatherData(location)
 	}
 
 	getWeatherData(location) {
@@ -142,7 +81,7 @@ export default class App extends React.Component {
 			.then(resp => {
 				if (resp.cod >= 200 && resp.cod < 400) {
 					this.setState({
-						nextDaysData: resp
+						nextDaysData: resp.list
 					})
 				} else {
 					this._addNotification();
@@ -153,14 +92,31 @@ export default class App extends React.Component {
 			});
 	}
 
+	renderNextDaysData() {
+		if(this.state.nextDaysData) {
+			return this.state.nextDaysData.map((item, index) => {
+				return (
+					<NextDayCard
+						key={index}
+						day={getNextDays()[index]}
+						iconClass= {checkMainWeatherType(item.weather[0].main)}
+						weatherType= {item.weather[0].main}
+						maxTemp= {kelvinToCelsius(item.temp.max)}
+						minTemp= {kelvinToCelsius(item.temp.min)}
+					/>
+				)
+			})
+		}
+
+		return <p>Loading...</p>
+	}
+
 	render() {
 		var bgImage = {
 			backgroundImage: 'url(' + pic + ')'
 		};
 
-		var nextDays = getNextDays();
-
-    return (
+		return (
       <div style={bgImage} className="clearfix">
 				<div>
 					<NotificationSystem ref="notificationSystem"/>
@@ -177,45 +133,9 @@ export default class App extends React.Component {
 				<LocationDropDown onSelect={this.getWeatherData}/>
 
 				<div id="cards-container">
-					<NextDayCard
-						day={nextDays[0]}
-						iconClass= {checkMainWeatherType(this.state.nextDaysData.list[0].weather[0].main)}
-						weatherType= {this.state.nextDaysData.list[0].weather[0].main}
-						maxTemp= {kelvinToCelsius(this.state.nextDaysData.list[0].temp.max)}
-						minTemp= {kelvinToCelsius(this.state.nextDaysData.list[0].temp.min)}
-					/>
-
-					<NextDayCard
-						day={nextDays[1]}
-						iconClass= {checkMainWeatherType(this.state.nextDaysData.list[1].weather[0].main)}
-						weatherType= {this.state.nextDaysData.list[1].weather[0].main}
-						maxTemp= {kelvinToCelsius(this.state.nextDaysData.list[1].temp.max)}
-						minTemp= {kelvinToCelsius(this.state.nextDaysData.list[1].temp.min)}
-					/>
-
-					<NextDayCard
-						day={nextDays[2]}
-						iconClass= {checkMainWeatherType(this.state.nextDaysData.list[2].weather[0].main)}
-						weatherType= {this.state.nextDaysData.list[2].weather[0].main}
-						maxTemp= {kelvinToCelsius(this.state.nextDaysData.list[2].temp.max)}
-						minTemp= {kelvinToCelsius(this.state.nextDaysData.list[2].temp.min)}
-					/>
-
-					<NextDayCard
-						day={nextDays[3]}
-						iconClass= {checkMainWeatherType(this.state.nextDaysData.list[3].weather[0].main)}
-						weatherType= {this.state.nextDaysData.list[3].weather[0].main}
-						maxTemp= {kelvinToCelsius(this.state.nextDaysData.list[3].temp.max)}
-						minTemp= {kelvinToCelsius(this.state.nextDaysData.list[3].temp.min)}
-					/>
-
-					<NextDayCard
-						day={nextDays[4]}
-						iconClass= {checkMainWeatherType(this.state.nextDaysData.list[4].weather[0].main)}
-						weatherType= {this.state.nextDaysData.list[4].weather[0].main}
-						maxTemp= {kelvinToCelsius(this.state.nextDaysData.list[4].temp.max)}
-						minTemp= {kelvinToCelsius(this.state.nextDaysData.list[4].temp.min)}
-					/>
+					{
+						this.renderNextDaysData()
+					}
 				</div>
       </div>
     )
