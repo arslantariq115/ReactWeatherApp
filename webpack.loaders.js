@@ -7,7 +7,7 @@ module.exports = [
 	{
 		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
 		exclude: /(node_modules|bower_components)/,
-		loader: "file"
+		loader: "url-loader?limit=10000"
 	},
 	{
 		test: /\.(woff|woff2)$/,
@@ -17,12 +17,12 @@ module.exports = [
 	{
 		test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
 		exclude: /(node_modules|bower_components)/,
-		loader: "url?limit=10000&mimetype=application/octet-stream"
+		loader: "url-loader?limit=10000&mimetype=application/octet-stream"
 	},
 	{
 		test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
 		exclude: /(node_modules|bower_components)/,
-		loader: "url?limit=10000&mimetype=image/svg+xml"
+		loader: "url-loader?limit=10000&mimetype=image/svg+xml"
 	},
 	{
 		test: /\.gif/,

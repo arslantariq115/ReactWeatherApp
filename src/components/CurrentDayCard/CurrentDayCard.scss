@@ -1,0 +1,33 @@
+$card-content-color: #102342;
+
+#card-active {
+  width: 700px;
+  margin-left: 50px;
+  color: $card-content-color;
+  display: inline-block;
+
+  #city-name {
+    font-size: 80px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+
+  .current-weather-icon {
+    margin-left: 20px;
+    display: inline-block;
+    align-items: center;
+  }
+}
+
+#current-temperature {
+  font-size: 80px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+#active-weather-type {
+  display: inline-block;
+  font-size: 30px;
+  margin-top: 1px;
+}

@@ -1,6 +1,19 @@
-.redBg {
-    background-color: red;
-    border-radius: 5px;
-    color: white;
-    padding: 5px;
+@import "weather-icons";
+@import "components/CurrentDayCard/CurrentDayCard";
+@import "components/NextDayCard/NextDayCard";
+@import "components/LocationDropDown/LocationDropDown";
+
+body {
+  font-family: 'Raleway', sans-serif;
+
+    .clearfix {
+        overflow: auto;
+        clear: both;
+    }
+
+    #cards-container {
+        margin-top: 150px;
+    }
 }
+
+

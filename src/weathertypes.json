@@ -1,0 +1,12 @@
+{
+	"Thunderstorm":"wi-storm-showers",
+	"Drizzle":"wi-showers",
+	"Rain":"wi-rain",
+	"Snow":"wi-snow",
+	"Mist":"wi-fog",
+	"Smoke":"wi-fog",
+	"Haze":"wi-fog",
+	"Fog":"wi-fog",
+	"Clear":"wi-day-sunny",
+	"Clouds":"wi-cloudy"
+}
