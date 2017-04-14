@@ -1,5 +1,6 @@
 import './index.scss';
 import React from 'react';
+import Loader from 'react-loading-overlay'
 import pic from './weather.jpg';
 import CurrentDayCard from './components/CurrentDayCard/CurrentDayCard';
 import NextDayCard from './components/NextDayCard/NextDayCard';
@@ -20,7 +21,8 @@ export default class App extends React.Component {
 			city: '',
 			country: '',
 			weatherData: {},
-			nextDaysData: null
+			nextDaysData: null,
+			loading: false
 		};
 	}
 
@@ -42,13 +44,17 @@ export default class App extends React.Component {
 				lat: 31.5546,
 				lng: 74.3572
 			}
-		}
+		};
 
-		this.getWeatherData(location)
+		this.getWeatherData(location);
 	}
 
 	getWeatherData(location) {
-		const { lat, lng } = location.location
+		const { lat, lng } = location.location;
+
+		this.setState({
+			loading: true
+		});
 
 		//requesting current day data
 		fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=bf23050b48cf91b8e12d5164884f86b0`, {
@@ -81,10 +87,14 @@ export default class App extends React.Component {
 			.then(resp => {
 				if (resp.cod >= 200 && resp.cod < 400) {
 					this.setState({
-						nextDaysData: resp.list
+						nextDaysData: resp.list,
+						loading: false
 					})
 				} else {
 					this._addNotification();
+					this.setState({
+						loading: false
+					});
 				}
 			})
 			.catch(err => {
@@ -107,8 +117,6 @@ export default class App extends React.Component {
 				)
 			})
 		}
-
-		return <p>Loading...</p>
 	}
 
 	render() {
@@ -117,27 +125,33 @@ export default class App extends React.Component {
 		};
 
 		return (
-      <div style={bgImage} className="clearfix">
-				<div>
-					<NotificationSystem ref="notificationSystem"/>
+			<Loader
+				active={this.state.loading}
+				spinner
+				text='Loading weather data...'
+			>
+				<div style={bgImage} className="clearfix">
+					<div>
+						<NotificationSystem ref="notificationSystem"/>
+					</div>
+
+					<CurrentDayCard
+						city={this.state.city}
+						country={this.state.country}
+						iconClass={checkMainWeatherType(this.state.weatherData.weatherType)}
+						temperature={this.state.weatherData.temperature}
+						weatherType={this.state.weatherData.weatherType}
+					/>
+
+					<LocationDropDown onSelect={this.getWeatherData}/>
+
+					<div id="cards-container">
+						{
+							this.renderNextDaysData()
+						}
+					</div>
 				</div>
-
-				<CurrentDayCard
-					city={this.state.city}
-					country={this.state.country}
-					iconClass={checkMainWeatherType(this.state.weatherData.weatherType)}
-					temperature={this.state.weatherData.temperature}
-					weatherType={this.state.weatherData.weatherType}
-				/>
-
-				<LocationDropDown onSelect={this.getWeatherData}/>
-
-				<div id="cards-container">
-					{
-						this.renderNextDaysData()
-					}
-				</div>
-      </div>
+			</Loader>
     )
   }
 }
