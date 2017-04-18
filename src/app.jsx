@@ -18,11 +18,12 @@ export default class App extends React.Component {
 		this._addNotification = this._addNotification.bind(this);
 
 		this.state = {
-			city: '',
-			country: '',
-			weatherData: {},
-			nextDaysData: null,
-			loading: false
+			city: props.city,
+			country: props.country,
+			weatherData: props.weatherData,
+			nextDaysData: props.nextDaysData,
+			isFetchingCurrentWeatherData: props.isFetchingCurrentWeatherData,
+			isFetchingNextDaysWeatherData: props.isFetchingNextDaysWeatherData
 		};
 	}
 
@@ -50,9 +51,13 @@ export default class App extends React.Component {
 	}
 
 	getWeatherData(location) {
-		const { lat, lng } = location.location;
+		//const { lat, lng } = location.location;
+		const { fetchCurrentWeatherData, fetchNextDaysWeatherData } = this.props;
 
-		this.setState({
+		fetchCurrentWeatherData(location);
+		fetchNextDaysWeatherData(location);
+
+		/*this.setState({
 			loading: true
 		});
 
@@ -79,7 +84,7 @@ export default class App extends React.Component {
 				throw(err)
 			});
 
-		//requesting data for next three days
+		//requesting data for next five days
 		fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lng}&mode=json&cnt=5&APPID=bf23050b48cf91b8e12d5164884f86b0`, {
 			method: 'get',
 			mode: 'cors'
@@ -99,7 +104,7 @@ export default class App extends React.Component {
 			})
 			.catch(err => {
 				throw(err)
-			});
+			});*/
 	}
 
 	renderNextDaysData() {
@@ -126,7 +131,7 @@ export default class App extends React.Component {
 
 		return (
 			<Loader
-				active={this.state.loading}
+				active={this.state.isFetchingCurrentWeatherData || this.state.isFetchingNextDaysWeatherData}
 				spinner
 				text='Loading weather data...'
 			>
