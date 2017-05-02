@@ -3,11 +3,11 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './conatiners/WeatherAppContainer';
 import { Provider } from 'react-redux';
-import {createStore, compose, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import reducers from '../src/modules/reducers'
 
-let store = createStore(reducers, compose(applyMiddleware(thunk)));
+let store = createStore(reducers, applyMiddleware(thunk));
 
 render( <Provider store={store}><AppContainer><App/></AppContainer></Provider>, document.querySelector("#app"));
 

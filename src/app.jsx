@@ -51,60 +51,10 @@ export default class App extends React.Component {
 	}
 
 	getWeatherData(location) {
-		//const { lat, lng } = location.location;
 		const { fetchCurrentWeatherData, fetchNextDaysWeatherData } = this.props;
 
 		fetchCurrentWeatherData(location);
 		fetchNextDaysWeatherData(location);
-
-		/*this.setState({
-			loading: true
-		});
-
-		//requesting current day data
-		fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=bf23050b48cf91b8e12d5164884f86b0`, {
-			method: 'get',
-			mode: 'cors'
-		}).then(response => response.json())
-			.then(resp => {
-				if (resp.cod >= 200 && resp.cod < 400) {
-					this.setState({
-						city: resp.name,
-						country: resp.sys.country,
-						weatherData: {
-							temperature: kelvinToCelsius(resp.main.temp),
-							weatherType: resp.weather[0].main
-						}
-					})
-				} else {
-					this._addNotification();
-				}
-			})
-			.catch(err => {
-				throw(err)
-			});
-
-		//requesting data for next five days
-		fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lng}&mode=json&cnt=5&APPID=bf23050b48cf91b8e12d5164884f86b0`, {
-			method: 'get',
-			mode: 'cors'
-		}).then(response => response.json())
-			.then(resp => {
-				if (resp.cod >= 200 && resp.cod < 400) {
-					this.setState({
-						nextDaysData: resp.list,
-						loading: false
-					})
-				} else {
-					this._addNotification();
-					this.setState({
-						loading: false
-					});
-				}
-			})
-			.catch(err => {
-				throw(err)
-			});*/
 	}
 
 	renderNextDaysData() {
