@@ -5,8 +5,8 @@ import pic from './weather.jpg';
 import CurrentDayCard from './components/CurrentDayCard/CurrentDayCard';
 import NextDayCard from './components/NextDayCard/NextDayCard';
 import NotificationSystem from 'react-notification-system';
-import LocationDropDown from './components/LocationDropDown/LocationDropDown'
-import { kelvinToCelsius, getNextDays, checkMainWeatherType } from './helpers/utils'
+import LocationDropDown from './components/LocationDropDown/LocationDropDown';
+import { kelvinToCelsius, getNextDays, checkMainWeatherType } from './helpers/utils';
 
 export default class App extends React.Component {
 	_notificationSystem = null;
